@@ -1,56 +1,24 @@
-"""Functions plotting results."""
+# """Functions plotting results."""
 
-import plotly.express as px
-import plotly.graph_objects as go
+# import plotly.express as px
+# import plotly.graph_objects as go
+# import seaborn as sns
+# import pandas as pd
 
-
-def plot_regression_by_age(data, data_info, predictions, group):
-    """Plot regression results by age.
-
-    Args:
-        data (pandas.DataFrame): The data set.
-        data_info (dict): Information on data set stored in data_info.yaml. The
-            following keys can be accessed:
-            - 'outcome': Name of dependent variable column in data
-            - 'outcome_numerical': Name to be given to the numerical version of outcome
-            - 'columns_to_drop': Names of columns that are dropped in data cleaning step
-            - 'categorical_columns': Names of columns that are converted to categorical
-            - 'column_rename_mapping': Old and new names of columns to be renamend,
-                stored in a dictionary with design: {'old_name': 'new_name'}
-            - 'url': URL to data set
-        predictions (pandas.DataFrame): Model predictions for different age values.
-        group (str): Categorical column in data set. We create predictions for each
-            unique value in column data[group]. Cannot be 'age' or 'smoke'.
-
-    Returns:
-        plotly.graph_objects.Figure: The figure.
-
-    """
-    plot_data = predictions.melt(
-        id_vars="age",
-        value_vars=predictions.columns,
-        value_name="prediction",
-        var_name=group,
-    )
-
-    outcomes = data[data_info["outcome_numerical"]]
-
-    fig = px.line(
-        plot_data,
-        x="age",
-        y="prediction",
-        color=group,
-        labels={"age": "Age", "prediction": "Probability of Smoking"},
-    )
-
-    fig.add_traces(
-        go.Scatter(
-            x=data["age"],
-            y=outcomes,
-            mode="markers",
-            marker_color="black",
-            marker_opacity=0.1,
-            name="Data",
-        ),
-    )
-    return fig
+# def plot_weights(IO_naics_2_digit,weights):
+#     """Plot consumption (solid line) and investment weights (dashed line) for each industry."""
+#     weights_graph=weights.merge(IO_naics_2_digit,on='IOCode',how='left')
+#     weights_graph['Year'] = pd.to_datetime(weights_graph.year, format="%Y")
+#     weights_graph=weights_graph.melt(id_vars=['Year','naics'],
+#                    value_vars=['consumption weights', 'investment weights'],
+#                   value_name='Weight',var_name='Industry')
+#     weights_graph['Industry']=weights_graph.Industry.map({'consumption weights':'Consumption',
+#                            'investment weights':'Investment'})
+#     weights_graph.rename(columns={'naics':'Naics'},inplace=True)
+#     g = sns.relplot(x='Year',y='Weight',hue='Naics',style='Industry',
+#                 facet_kws=dict(sharey=False,sharex=False),
+#            linewidth=4,col='Naics',col_wrap=3,kind='line',
+#             aspect=1.5,data=weights_graph)
+#     fig=g.set_titles('{col_name}')
+#     fig=g._legend.remove()
+#     return fig

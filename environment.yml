@@ -25,6 +25,12 @@ dependencies:
   - setuptools_scm
   - statsmodels
   - toml
+  - seaborn
+  - scipy
+  - joblib
+  - numpy
+  - pandas-datareader
+  - openpyxl
   - pip:
       - -e .
       - kaleido

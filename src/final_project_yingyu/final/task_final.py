@@ -1,42 +1,23 @@
-"""Tasks running the results formatting (tables, figures)."""
+# """Tasks running the results formatting (tables, figures)."""
 
-import pandas as pd
-import pytask
+# import pandas as pd
+# import pytask
 
-from final_project_yingyu.analysis.model import load_model
-from final_project_yingyu.config import BLD, GROUPS, SRC
-from final_project_yingyu.final import plot_regression_by_age
-from final_project_yingyu.utilities import read_yaml
+# from final_project_yingyu.config import BLD
+# from final_project_yingyu.final import plot_weights
 
-for group in GROUPS:
+# kwargs={"produces":BLD/"python"/"figures"/"plot_weights.png"}
 
-    kwargs = {
-        "group": group,
-        "depends_on": {"predictions": BLD / "python" / "predictions" / f"{group}.csv"},
-        "produces": BLD / "python" / "figures" / f"smoking_by_{group}.png",
-    }
-
-    @pytask.mark.depends_on(
-        {
-            "data_info": SRC / "data_management" / "data_info.yaml",
-            "data": BLD / "python" / "data" / "data_clean.csv",
-        },
-    )
-    @pytask.mark.task(id=group, kwargs=kwargs)
-    def task_plot_results_by_age_python(depends_on, group, produces):
-        """Plot the regression results by age (Python version)."""
-        data_info = read_yaml(depends_on["data_info"])
-        data = pd.read_csv(depends_on["data"])
-        predictions = pd.read_csv(depends_on["predictions"])
-        fig = plot_regression_by_age(data, data_info, predictions, group)
-        fig.write_image(produces)
-
-
-@pytask.mark.depends_on(BLD / "python" / "models" / "model.pickle")
-@pytask.mark.produces(BLD / "python" / "tables" / "estimation_results.tex")
-def task_create_results_table_python(depends_on, produces):
-    """Store a table in LaTeX format with the estimation results (Python version)."""
-    model = load_model(depends_on)
-    table = model.summary().as_latex()
-    with open(produces, "w") as f:
-        f.writelines(table)
+# @pytask.mark.depends_on(
+#         {
+#             "IO_naics_2_digit": BLD / "python" / "data" / "IO_naics_2_digit.csv",
+#             "weights": BLD / "python" / "data" / "weights.csv",
+#         },
+#     )
+# @pytask.mark.task(kwargs=kwargs)
+# def task_plot_weights_python(depends_on, produces):
+#     """plots."""
+#     IO_naics_2_digit=pd.read_csv(depends_on["IO_naics_2_digit"])
+#     weights=pd.read_csv(depends_on["weights"])
+#     fig=plot_weights(IO_naics_2_digit,weights)
+#     fig.write_image(produces)
