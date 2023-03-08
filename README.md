@@ -1,11 +1,12 @@
-# Final Project
+# EPP Final Project
 
+This respository contains the final project using Python for the course "Effective Programming Practices for Economics". This project is the reproducible replication of [İlhan Güner (2023).Growth and Welfare Implications of Sector-Specific Innovations. Review of Economic Dynamics, Volume 47, Pages 204-245](https://doi.org/10.1016/j.red.2021.11.005).
 
-[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/Yingyu922/final_project_yingyu/main.svg)](https://results.pre-commit.ci/latest/github/Yingyu922/final_project_yingyu/main)
-[![image](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-
-## Usage
-
+## Installation
+Open a shell and run the following:
+```
+$ git clone https://github.com/Yingyu922/EPP-final-project-Yingyu.git
+```
 To get started, create and activate the environment with
 
 ```console
